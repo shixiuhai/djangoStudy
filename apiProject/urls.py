@@ -30,5 +30,5 @@ urlpatterns = [
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
     # can use for APIview
-    path('videoShow/',blogViews.VideoShow.as_view(),)
+    path('videoShow/',blogViews.VideoShow.as_view()),
 ]
