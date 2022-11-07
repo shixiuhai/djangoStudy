@@ -2,7 +2,7 @@ import json
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.views import Response
-from .models import VideoInformation
+from .models import VideoInformation,VideoDetail
 from .serializers import VideoInformationSerializer
 from rest_framework.pagination import PageNumberPagination
 import json
@@ -17,12 +17,25 @@ class VideoShow(APIView):
     def get(self, request, format=None):
         # get all information for database
         a= VideoInformation.objects.filter(id=1)
-        page =CustomPagination()  # 产生一个分页器对z
+        page =CustomPagination()  # 产生一个分页器对
         print(request.data)
         ret = page.paginate_queryset(a,request)
         # use serializer
         serializer = VideoInformationSerializer(ret,many=True)
         return Response(serializer.data)
+    
+    def post(self,request):
+        # print(request.data)
+        # 使用序列号器接收对象
+        serializer = VideoInformationSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response("出现错误")
+        # 保存数据
+        serializer.save()
+        print(serializer)
+        print('+++')
+        return serializer
+
 
     # def post(self,request):
     #     pass
