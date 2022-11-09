@@ -20,15 +20,24 @@ from rest_framework import routers
 from restFramework import views as restFrameworkViews
 # import blog app views
 from blog import views as blogViews
+from rest_framework.schemas import get_schema_view
+from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
 # create router object
 router = routers.DefaultRouter()
 
+schema_view = get_schema_view(title='API文档', renderer_classes=[OpenAPIRenderer, SwaggerUIRenderer])
 # only for viewset
 router.register(r'videoInformation', restFrameworkViews.VideoInformationViewSet)
+
 urlpatterns = [
     path('', include(router.urls)),
-    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
     # can use for APIview
-    path('videoShow/',blogViews.VideoShow.as_view()),
+    # delete 删除
+    # get 查询
+    path(r'videoShow/',blogViews.VideoShow.as_view()),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('docs/',schema_view,name='docs'),
+
+
 ]
