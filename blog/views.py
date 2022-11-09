@@ -19,7 +19,7 @@ class CustomPagination(PageNumberPagination):
 class VideoShow(APIView):
     # 参数测试
     
-    def get(self,pk)->object:
+    def get(self,request,pk)->object:
         """
         get 接口
         """
@@ -29,8 +29,8 @@ class VideoShow(APIView):
         #     ]
         # )
         
-        a=request.query_params.dict()['page']
-        b=request.query_params.dict()['size']
+        # a=request.query_params.dict()['page']
+        # b=request.query_params.dict()['size']
         # print(a['page'],a['size'])
         # get all information for database
         a= VideoInformation.objects.filter(id=1)
