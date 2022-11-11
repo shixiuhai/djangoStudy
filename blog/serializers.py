@@ -5,6 +5,9 @@ class VideoDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model=VideoDetail
         fields='__all__'
+        # def create(self,validated_data):
+        #     print('=====')
+        #     print(validated_data)
 
 class VideoInformationSerializer(serializers.ModelSerializer):
     # # 视频详情序列化对象
@@ -29,9 +32,10 @@ class VideoInformationSerializer(serializers.ModelSerializer):
     # select data and get detail
     def get_video_detail(self,instance):
         # 获取信息
+        
         video_detail=VideoDetail.objects.filter(video_information_id=instance.id).all()
         serializers=VideoDetailSerializer(video_detail,many=True)
-        print(serializers.data)
+        # print(serializers.data)
 
 
         return serializers.data
@@ -39,11 +43,12 @@ class VideoInformationSerializer(serializers.ModelSerializer):
     def create(self,validated_data):
         videoInformation=VideoInformation(**validated_data)
         videoInformation.save()
-        return validated_data
+        # 返回对象
+        return videoInformation
     
     # update data
-    def update(self,instance, validated_data):
-        pass
+    # def update(self,instance, validated_data):
+    #     pass
 
 
     
