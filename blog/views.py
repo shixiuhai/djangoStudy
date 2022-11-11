@@ -1,3 +1,4 @@
+from asyncio.log import logger
 import json
 from venv import create
 from rest_framework.permissions import AllowAny,IsAuthenticated
@@ -11,7 +12,9 @@ from rest_framework.views import APIView, Response
 from .models import VideoDetail, VideoInformation
 from .serializers import VideoDetailSerializer, VideoInformationSerializer
 
-
+# 导入日志包
+import logging
+logger = logging.getLogger('django')
 class CustomPagination(PageNumberPagination):
     page_size = 2 # 默认每页显示的多少条记录
     page_query_param = 'page'  # URL中页码的参数
@@ -48,6 +51,7 @@ class VideoShow(APIView):
 
 
     def post(self,request):
+        logger.info('heelo word')
         # print(request.data)
         # 使用序列号器接收对象
         serializer = VideoInformationSerializer(data=request.data)

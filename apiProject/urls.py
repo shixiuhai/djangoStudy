@@ -20,8 +20,11 @@ from rest_framework import routers
 from restFramework import views as restFrameworkViews
 # import blog app views
 from blog import views as blogViews
+from users import urls as userUrls
 from rest_framework.schemas import get_schema_view
 from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
+
+import users
 # create router object
 router = routers.DefaultRouter()
 
@@ -38,6 +41,7 @@ DELETE  /books/<pk>/    删除指定id的记录
 APIView  序列化器
 """
 urlpatterns = [
+    # re_path(r"^",include(userUrls)),
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
     # can use for APIview

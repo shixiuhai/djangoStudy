@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import datetime
 # import sys
 # sys.path.append('..')
 
@@ -29,6 +30,7 @@ SECRET_KEY = 'django-insecure-xsy$h()zl)&yqdm!vv!=g-m2n@r=$*gl%405i0tjfwo@uqd3xz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -41,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'restFramework',
-    'rest_framework_swagger'
+    'rest_framework_swagger',
+    'users'
 
 ]
 
@@ -128,6 +131,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+# DRF配置项
 REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
@@ -144,7 +148,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         # 登录方式
         'rest_framework_simplejwt.authentication.JWTAuthentication'
-    ]
+    ],
+    # 分页
+    'DEFAULT_PAGINATION_CLASS': 'apiProject.utils.pagination.StandardResultsSetPagination',
+
 }
 
 
@@ -232,8 +239,7 @@ LOGGING = {
 
 # 
 
-# swagger 配置
-# swagger 配置项
+
 # swagger 配置项
 SWAGGER_SETTINGS = {
     # 基础样式
@@ -257,3 +263,13 @@ SWAGGER_SETTINGS = {
     'OPERATIONS_SORTER': 'alpha',
     'VALIDATOR_URL': None,
 }
+
+# JWT的有效期
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),  # JWT有效期
+
+    # 修改JWT登录视图的构造响应数据的函数
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'users.utils.jwt_response_payload_handler',
+}
+# 修改Django认证系统的用户模型类
+AUTH_USER_MODEL = 'users.User'
