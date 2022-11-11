@@ -140,7 +140,11 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'apiProject.utils.rendererresponse.customrenderer',
     ),
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema'
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 登录方式
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ]
 }
 
 

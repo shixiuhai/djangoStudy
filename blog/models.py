@@ -12,7 +12,7 @@ class VideoInformation(models.Model):
         db_table = 'video_information'
 
 class VideoDetail(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     video_information_id = models.IntegerField(blank=True, null=True)
     video_time = models.DateTimeField(blank=True, null=True)
 
